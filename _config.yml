@@ -13,8 +13,8 @@ timezone: Asia/Shanghai
 
 # URL
 ## Set your site url here. For example, if you use GitHub Page, set url as 'https://username.github.io/project'
-url: https://cearl.cc/blog
-root: /blog/
+url: https://cearl.cc/seeds
+root: /seeds/
 # permalink: :year/:month/:day/:title/
 permalink: posts/:pid/
 permalink_defaults:
@@ -146,6 +146,6 @@ waline:
 deploy:
   deploy:
   type: git
-  repo: git@github.com:chess99/blog.git
+  repo: git@github.com:chess99/seeds.git
   branch: gh-pages
   message: update
