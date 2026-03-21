@@ -1,0 +1,2 @@
+#!/usr/bin/env sh
+python tools/check_post_pid.py && python tools/check_post_images.py
