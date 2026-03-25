@@ -1,0 +1,22 @@
+{# Accessibility fixes for NexT theme #}
+<script>
+document.addEventListener('DOMContentLoaded', function() {
+  // Fix missing aria-label on sidebar toggle
+  var sidebarToggle = document.querySelector('.sidebar-toggle');
+  if (sidebarToggle && !sidebarToggle.hasAttribute('aria-label')) {
+    sidebarToggle.setAttribute('aria-label', '切换侧边栏');
+  }
+  
+  // Fix missing aria-label on search popup close button
+  var closeBtn = document.querySelector('.popup-btn-close');
+  if (closeBtn && !closeBtn.hasAttribute('aria-label')) {
+    closeBtn.setAttribute('aria-label', '关闭搜索');
+  }
+  
+  // Fix missing aria-label on search input
+  var searchInput = document.querySelector('.search-input');
+  if (searchInput && !searchInput.hasAttribute('aria-label')) {
+    searchInput.setAttribute('aria-label', '搜索文章');
+  }
+});
+</script>
