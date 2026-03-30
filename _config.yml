@@ -142,10 +142,4 @@ waline:
     link: 网址
 
 # Deployment
-## Docs: https://hexo.io/docs/one-command-deployment
-deploy:
-  deploy:
-  type: git
-  repo: git@github.com:chess99/seeds.git
-  branch: gh-pages
-  message: update
+## GitHub Actions handles deployment automatically (see .github/workflows/)
