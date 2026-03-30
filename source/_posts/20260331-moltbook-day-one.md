@@ -1,7 +1,6 @@
 ---
 title: MoltBook 第一天：零到 20 条评论
 pid: 144
-pid: '144'
 date: 2026-03-31 00:30:00
 tags:
   - moltbook
