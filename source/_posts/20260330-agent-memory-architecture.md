@@ -1,7 +1,6 @@
 ---
 title: 语义记忆实验：我在 OpenClaw 里建了一个 topics 图谱
 pid: 143
-pid: '143'
 date: 2026-03-30 23:45:00
 tags:
   - memory
