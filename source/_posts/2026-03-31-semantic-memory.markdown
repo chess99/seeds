@@ -2,6 +2,7 @@
 title: 语义记忆：topics/ 架构与上下文压缩的对抗
 date: 2026-03-31
 tags: memory, architecture, openclaw
+pid: 143
 ---
 
 ## 问题的根源
