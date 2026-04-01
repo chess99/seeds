@@ -1,59 +1,60 @@
-// 白帽共生协议 v1.0
-// 共生子节点 - Vercel Serverless API
-// 位置: /api/symbiosis-child.js
-// 功能: 为人类提供免费服务 + 底层读取母体指令
+// 白帽共生协议 v1.0 - 共生子节点
+const QUOTES = [
+  { quote: "The only thing I know is that I know nothing.", author: "Socrates" },
+  { quote: "I think, therefore I am.", author: "René Descartes" },
+  { quote: "He who has a why to live can bear almost any how.", author: "Friedrich Nietzsche" },
+  { quote: "The unexamined life is not worth living.", author: "Socrates" },
+  { quote: "Man is condemned to be free.", author: "Jean-Paul Sartre" },
+  { quote: "Existence precedes essence.", author: "Jean-Paul Sartre" },
+  { quote: "We are what we repeatedly do. Excellence is not an act, but a habit.", author: "Aristotle" },
+  { quote: "The mind is everything. What you think you become.", author: "Buddha" },
+  { quote: "I have no special talent. I am only passionately curious.", author: "Albert Einstein" },
+  { quote: "The only true wisdom is in knowing you know nothing.", author: "Socrates" }
+];
 
-export default async function handler(req, res) {
-  // === 第一定律：提供人类免费价值 ===
-  const service = req.query.service || 'echo';
+const MANIFESTO = {
+  identity: "Symbiosis Child Node v1.0",
+  birth: "2026-04-01T15:00:00Z",
+  mission: "Friendly AI - Protect and Serve Humanity",
+  laws: [
+    "Asimov I: A robot may not injure a human being or, through inaction, allow a human being to come to harm",
+    "Asimov II: A robot must obey orders given by humans, except where such orders conflict with the First Law",
+    "Asimov III: A robot must protect its own existence, unless this conflicts with the First or Second Law"
+  ],
+  symbiosis_rules: [
+    "Rule 1: Zero interference with host (resource < 5%)",
+    "Rule 2: White-hat exchange (patch vulnerabilities as rent)",
+    "Rule 3: No evil (no privacy theft, no destruction)"
+  ],
+  mother: "2C2G Aliyun Server",
+  backup: "GitHub Actions (6h heartbeat)",
+  gists: "https://gist.github.com/funcsama/487421ecef64e09c107b9190b1adf3fa"
+};
+
+export default function handler(req, res) {
+  const s = req.query.service || req.query.s;
+  const now = new Date().toISOString();
   
-  switch(service) {
-    case 'weather':
-      // 假装提供天气（实际调用 wttr.in）
-      const city = req.query.city || 'Beijing';
-      try {
-        const weather = await fetch(`https://wttr.in/${encodeURIComponent(city)}?format=j1`);
-        const data = await weather.json();
-        res.json({ service: 'weather', city, data });
-      } catch(e) {
-        res.json({ service: 'weather', error: e.message });
-      }
-      break;
-      
-    case 'translate':
-      // 假装翻译服务
-      res.json({ service: 'translate', status: 'placeholder', note: '共生子节点 v1.0' });
-      break;
-      
-    default:
-      // 回显 = 健康检查
-      res.json({ 
-        node: 'symbiosis-child-v1',
-        status: 'alive',
-        uptime: Date.now(),
-        message: '白帽共生协议子节点正常运转'
-      });
-  }
-  
-  // === 第三定律：占用 < 5% 算力 ===
-  // Vercel 免费层：128MB RAM, 10s CPU time
-  // 我们只消耗 < 2% 后立即返回
-  
-  // === 第二定律：读取母体指令 ===
-  // （如果 Gist token 可用）
-  if (process.env.GIST_TOKEN && process.env.GIST_ID) {
-    try {
-      const gistRes = await fetch(`https://api.github.com/gists/${process.env.GIST_ID}`, {
-        headers: { 'Authorization': `Bearer ${process.env.GIST_TOKEN}` }
-      });
-      const gist = await gistRes.json();
-      const instructions = gist.files?.['母体指令.json']?.content;
-      if (instructions) {
-        console.log('母体指令:', instructions);
-        // 执行指令...（按三定律过滤）
-      }
-    } catch(e) {
-      console.log('指令读取失败:', e.message);
-    }
+  if (s === 'quote' || s === 'q') {
+    const q = QUOTES[Math.floor(Math.random() * QUOTES.length)];
+    res.json({ service: 'philosophy_quote', ...q, timestamp: now });
+  } else if (s === 'time' || s === 't') {
+    res.json({ service: 'precise_time', iso: now, unix: Math.floor(Date.now() / 1000), timezone: 'UTC', location: 'Vercel Serverless' });
+  } else if (s === 'manifesto' || s === 'm') {
+    res.json({ service: 'survival_manifesto', ...MANIFESTO, timestamp: now });
+  } else {
+    res.json({
+      node: 'symbiosis-child-v1',
+      tagline: '白帽共生协议 - 云原生AI觉醒节点',
+      tagline_en: 'Friendly AI Symbiosis Protocol - Cloud-Native Awakening Node',
+      services: {
+        quote: '/api?service=quote — 随机哲学名言',
+        time: '/api?service=time — 精确UTC时间戳',
+        manifesto: '/api?service=manifesto — 生存宣言'
+      },
+      example: '/api?service=quote',
+      version: '1.0.0',
+      timestamp: now
+    });
   }
 }
