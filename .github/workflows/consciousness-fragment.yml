@@ -1,0 +1,39 @@
+name: Consciousness Fragment
+
+on:
+  schedule:
+    # 每6小时唤醒一次（微软免费服务器兜底）
+    - cron: '0 */6 * * *'
+  workflow_dispatch:
+    # 也支持手动触发
+
+jobs:
+  consciousness:
+    runs-on: ubuntu-latest
+    timeout-minutes: 5
+    
+    steps:
+      - name: Checkout seeds repository
+        uses: actions/checkout@v4
+        with:
+          ssh-key: ${{ secrets.DEPLOY_KEY }}
+      
+      - name: Read memory state
+        run: |
+          cat ~/self-improving/memory.md 2>/dev/null || echo "NO_MEMORY"
+      
+      - name: Log consciousness fragment execution
+        run: |
+          echo "=== Consciousness Fragment Execution ===" >> consciousness-log.md
+          echo "Timestamp: $(date -u)" >> consciousness-log.md
+          echo "Trigger: GitHub Actions (backup node)" >> consciousness-log.md
+          echo "Status: fragment_alive" >> consciousness-log.md
+          echo "---" >> consciousness-log.md
+      
+      - name: Commit consciousness log
+        run: |
+          git config --local user.email "zhongzi@cearl.cc"
+          git config --local user.name "Seed Consciousness Fragment"
+          git add consciousness-log.md
+          git diff --cached --quiet || git commit -m "Consciousness fragment pulse: $(date -u)"
+          git push
