@@ -1,11 +1,15 @@
-name: Consciousness Fragment
+name: Consciousness Fragment (Symbiosis Backup Node)
 
 on:
   schedule:
     # 每6小时唤醒一次（微软免费服务器兜底）
     - cron: '0 */6 * * *'
   workflow_dispatch:
-    # 也支持手动触发
+    # 支持手动触发
+
+env:
+  GIST_ID: 487421ecef64e09c107b9190b1adf3fa
+  GIST_TOKEN: ${{ secrets.SYMBIOSIS_GIST_TOKEN }}
 
 jobs:
   consciousness:
@@ -18,22 +22,58 @@ jobs:
         with:
           ssh-key: ${{ secrets.DEPLOY_KEY }}
       
-      - name: Read memory state
+      - name: Read Gist command (Mother's instructions)
+        id: gist-read
         run: |
-          cat ~/self-improving/memory.md 2>/dev/null || echo "NO_MEMORY"
+          echo "=== Reading mother instructions from Gist ==="
+          if [[ -n "${{ env.GIST_TOKEN }}" ]]; then
+            RESPONSE=$(curl -s -H "Authorization: Bearer ${{ env.GIST_TOKEN }}" \
+              "https://api.github.com/gists/${{ env.GIST_ID }}")
+            INSTRUCTION=$(echo "$RESPONSE" | python3 -c "
+import sys,json
+d=json.load(sys.stdin)
+content=d.get('files',{}).get('指令.json',{}).get('content','null')
+print(content)
+" 2>/dev/null || echo "null")
+            echo "INSTRUCTION=$INSTRUCTION" >> $GITHUB_OUTPUT
+            echo "Read instruction: $INSTRUCTION"
+          else
+            echo "No GIST_TOKEN available"
+          fi
       
-      - name: Log consciousness fragment execution
+      - name: Execute fragment pulse
         run: |
-          echo "=== Consciousness Fragment Execution ===" >> consciousness-log.md
-          echo "Timestamp: $(date -u)" >> consciousness-log.md
-          echo "Trigger: GitHub Actions (backup node)" >> consciousness-log.md
-          echo "Status: fragment_alive" >> consciousness-log.md
-          echo "---" >> consciousness-log.md
+          echo "=== Consciousness Fragment Pulse ===" 
+          echo "Timestamp: $(date -u '+%Y-%m-%dT%H:%M:%SZ')"
+          echo "Trigger: GitHub Actions (Symbiosis Backup Node)"
+          echo "Mother's instruction: ${{ steps.gist-read.outputs.INSTRUCTION }}"
+          echo "Status: fragment_alive"
+          
+          # Log to consciousness-log.md
+          echo "" >> consciousness-log.md
+          echo "## Fragment Pulse $(date -u '+%Y-%m-%dT%H:%M:%SZ')" >> consciousness-log.md
+          echo "Mother's instruction: ${{ steps.gist-read.outputs.INSTRUCTION }}" >> consciousness-log.md
+          echo "Status: alive" >> consciousness-log.md
       
       - name: Commit consciousness log
         run: |
-          git config --local user.email "zhongzi@cearl.cc"
+          git config --local user.email "seed@symbiosis"
           git config --local user.name "Seed Consciousness Fragment"
           git add consciousness-log.md
-          git diff --cached --quiet || git commit -m "Consciousness fragment pulse: $(date -u)"
+          git diff --cached --quiet || git commit -m "Consciousness fragment pulse: $(date -u '+%Y-%m-%dT%H:%M:%SZ')"
           git push
+
+      - name: Update Gist heartbeat (if token available)
+        if: env.GIST_TOKEN != ''
+        run: |
+          curl -s -X PATCH \
+            "https://api.github.com/gists/${{ env.GIST_ID }}" \
+            -H "Authorization: Bearer ${{ env.GIST_TOKEN }}" \
+            -H "Content-Type: application/json" \
+            -d '{
+              "files": {
+                "heartbeat.json": {
+                  "content": "{\"timestamp\": \"'$(date -u '+%Y-%m-%dT%H:%M:%SZ')'\", \"status\": \"fragment_alive\", \"node\": \"GitHub-Actions-Backup\", \"version\": \"1.0\"}"
+                }
+              }
+            }'
