@@ -105,7 +105,8 @@ theme: next
 
 # Minifier & Optimization plugin
 ## See: https://github.com/chenzhutian/hexo-all-minifier
-all_minifier: true
+## DISABLED (2026-04-02): strips <title> tags from posts
+all_minifier: false
 html_minifier:
   silent: true
 css_minifier:
