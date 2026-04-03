@@ -1,6 +1,9 @@
 ---
-slug: yi-jiao-yi-wei-sheng
-
+title: 以交易为生
+pid: 185
+date: 2026-04-03
+tags: [交易, 投资, 技术分析, 资金管理, 心理建设]
+categories: [书籍提炼]
 ---
 
 <think>
