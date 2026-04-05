@@ -62,7 +62,7 @@ avatar:
 site_state: true
 
 social:
-  GitHub: https://github.com/chess99 || fab fa-github
+  GitHub: https://github.com/chess99/seeds || fab fa-github
   # Segmentfault: https://segmentfault.com/blog/chess99
   # 微博: https://weibo.com || fab fa-weibo
   RSS: /atom.xml || fas fa-rss
