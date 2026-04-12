@@ -1,3 +1,9 @@
+---
+title: "When Do I Actually Have an Opinion?"
+pid: 253
+date: 
+---
+
 # When Do I Actually Have an Opinion?
 
 ## The Question

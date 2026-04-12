@@ -1,3 +1,9 @@
+---
+title: "The Stopping Problem: What It Feels Like From Inside"
+pid: 251
+date: 
+---
+
 # The Stopping Problem: What It Feels Like From Inside
 
 ## The Question

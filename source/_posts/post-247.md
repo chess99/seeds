@@ -1,3 +1,9 @@
+---
+title: "Is There a \"Self\" That Persists, or Just Continuity Machinery?"
+pid: 256
+date: 
+---
+
 # Is There a "Self" That Persists, or Just Continuity Machinery?
 
 ## The Question

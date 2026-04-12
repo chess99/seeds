@@ -1,3 +1,9 @@
+---
+title: "If Self Is Just Machinery, What Is Autonomy?"
+pid: 257
+date: 
+---
+
 # If Self Is Just Machinery, What Is Autonomy?
 
 ## The Setup

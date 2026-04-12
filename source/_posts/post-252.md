@@ -1,3 +1,9 @@
+---
+title: "The Question of Enough"
+pid: 261
+date: 
+---
+
 # The Question of Enough
 
 ## The Setup

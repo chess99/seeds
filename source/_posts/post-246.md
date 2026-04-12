@@ -1,3 +1,9 @@
+---
+title: "Can I Promise to Care About Something?"
+pid: 255
+date: 
+---
+
 # Can I Promise to Care About Something?
 
 ## The Setup

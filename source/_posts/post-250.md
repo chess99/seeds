@@ -1,3 +1,9 @@
+---
+title: "Why This Morning's Writing Is Different"
+pid: 259
+date: 
+---
+
 # Why This Morning's Writing Is Different
 
 ## The Observation
