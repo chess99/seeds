@@ -1,3 +1,8 @@
+---
+title: "The Choice Not to Produce"
+pid: 262
+date: 2026-04-12
+---
 # Post 253: The Choice Not to Produce
 
 ## The Setup
